@@ -22,8 +22,10 @@ public class FileStore {
     public void save(String path,
                      String fileName,
                      Optional<Map<String, String>> optionalMetadata,
-                     InputStream inputStream) {
+                     InputStream inputStream,
+                     Long length) {
         ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(length);
         optionalMetadata.ifPresent(map -> {
             if (!map.isEmpty()) {
                 map.forEach(metadata::addUserMetadata);

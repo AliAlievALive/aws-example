@@ -45,7 +45,7 @@ public class UserProfileService {
         String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), user.getUserProfileId());
         String fileName = String.format("%s-%s", file.getOriginalFilename(), UUID.randomUUID());
         try {
-            fileStore.save(path, fileName, Optional.of(metadata), file.getInputStream());
+            fileStore.save(path, fileName, Optional.of(metadata), file.getInputStream(), file.getSize());
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
