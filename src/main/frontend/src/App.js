@@ -40,7 +40,7 @@ function Dropzone({userProfileId}) {
         const formData = new FormData();
         formData.append("file", file);
         axios.post(
-            `http://localhost:8080/api/v1/user-profile/${userProfileId}/image/upload}`,
+            `http://localhost:8080/api/v1/user-profile/${userProfileId}/image/upload`,
             formData,
             {
                 headers:{
