@@ -15,6 +15,8 @@ public class AmazonConfig {
     private String accessKey;
     @Value("${amazon.secret.key}")
     private String secretKey;
+    @Value("${amazon.region}")
+    private String region;
 
     @Bean
     public AmazonS3 s3() {
@@ -22,6 +24,7 @@ public class AmazonConfig {
 
         return AmazonS3ClientBuilder
                 .standard()
+                .withRegion(region)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .build();
     }
