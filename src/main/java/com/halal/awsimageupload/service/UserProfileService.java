@@ -43,7 +43,7 @@ public class UserProfileService {
 
         //      5. Store the image in s3 and update DB (userProfileImageLink) with s3 image link
         String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), user.getUserProfileId());
-        String fileName = String.format("%s-%s", file.getName(), UUID.randomUUID());
+        String fileName = String.format("%s-%s", file.getOriginalFilename(), UUID.randomUUID());
         try {
             fileStore.save(path, fileName, Optional.of(metadata), file.getInputStream());
         } catch (IOException e) {
@@ -66,7 +66,11 @@ public class UserProfileService {
     }
 
     private void isImage(MultipartFile file) {
-        if (!List.of(IMAGE_JPEG, IMAGE_PNG, IMAGE_GIF).contains(file.getContentType())) {
+        if (
+                !List.of(IMAGE_JPEG.getMimeType(),
+                IMAGE_PNG.getMimeType(),
+                IMAGE_GIF.getMimeType()).contains(file.getContentType())
+        ) {
             throw new IllegalStateException("File must be an image");
         }
     }
