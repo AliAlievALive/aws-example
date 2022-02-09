@@ -1,6 +1,7 @@
 package com.halal.awsimageupload.profile;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 public class UserProfile {
@@ -30,8 +31,8 @@ public class UserProfile {
         this.userName = userName;
     }
 
-    public String getUserProfileImageLink() {
-        return userProfileImageLink;
+    public Optional<String> getUserProfileImageLink() {
+        return Optional.ofNullable(userProfileImageLink);
     }
 
     public void setUserProfileImageLink(String userProfileImageLink) {
