@@ -10,19 +10,20 @@ const UserProfiles = () => {
     const fetchUserProfiles = () => {
         axios.get("http://localhost:8080/api/v1/user-profile")
             .then(res => {
-            console.log(res);
-            setUserProfiles(res.data)
+                console.log(res);
+                setUserProfiles(res.data)
             });
     };
 
     useEffect(() => {
-      fetchUserProfiles()
+        fetchUserProfiles()
     }, []);
 
     return userProfiles.map((userProfile, index) => {
         return (
             <div key={index}>
-                {/*TODO: profile image*/}
+                {userProfile.userProfileId ?
+                    <img src={`http://localhost:8080/api/v1/user-profile/${userProfile.userProfileId}/image/download`}/> : null}
                 <br/>
                 <br/>
                 <h1>{userProfile.userName}</h1>
@@ -43,7 +44,7 @@ function Dropzone({userProfileId}) {
             `http://localhost:8080/api/v1/user-profile/${userProfileId}/image/upload`,
             formData,
             {
-                headers:{
+                headers: {
                     "Content-Type": "multipart/form-data"
                 }
             }).then(() => console.log("file uploaded successfully"))
